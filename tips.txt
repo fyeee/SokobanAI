@@ -1,0 +1,18 @@
+1. For the alternative heuristic function, I uses manhattan distance to approximate the total step remaining with modifications.
+2. Simply summing up the distance from boxes to storage is not a accurate measure since we need robots to move the boxes.
+in the heuristic, I add the shortest distance for each box from its closest robot.
+3. There are cases when the boxes are stuck in a conner and cannot move out from the corner, and cases when a box is
+push to a wall and cannot be push out from the wall nor find a storage point along the wall. In these cases, the game is
+in a deadlock state. A infinite heuristic should be return since its unsolvable.
+4 Consider the following case:
+#########
+#  $$$  #
+#   .   #
+#       #
+#  . .  #
+#########
+the normal manhattan distance heuristic will match all three box to the first storage point. However, this is far off from
+the actual cost, the heuristic underestimate the actual cost. By modifying the heuristic, we first find the box with the
+closest distance to a storage, pop out both the box and the storage point from the list and keep doing it until we match
+each box with a storage point.
+This gives us a more accurate measure, even its not a admissible heuristic.
